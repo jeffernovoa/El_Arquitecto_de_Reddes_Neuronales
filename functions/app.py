@@ -13,3 +13,6 @@ def train_model():
     architecture = data.get('architecture')
     acc = train_and_evaluate(architecture)
     return jsonify({"accuracy": acc, "image_url": "/static/results.png"})
+
+if __name__ == '__main__':
+    app.run(debug=True)

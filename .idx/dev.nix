@@ -23,5 +23,6 @@
     extensions = [
       # "vscodevim.vim"
     ];
+    # Rebuilding the environment
   };
 }
