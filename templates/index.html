@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>MLP Compiler</title>
+  <meta charset="utf-8">
+</head>
+<body style="font-family: sans-serif; text-align: center;">
+  <h1>🧠 MLP Interpreter - Firebase + Flask</h1>
+  <p>Escribe tu arquitectura de red:</p>
+  <input type="text" id="arch" size="60"
+         value="Dense(256, relu) -> Dense(128, relu) -> Dense(10, softmax)">
+  <br><br>
+  <button onclick="train()">Entrenar</button>
+  <p id="status"></p>
+  <img id="result" src="" style="max-width: 500px; display: none;">
+
+  <script>
+    async function train() {
+      const arch = document.getElementById("arch").value;
+      document.getElementById("status").innerText = "Entrenando modelo...";
+      const res = await fetch("/train", {
+        method: "POST",
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify({architecture: arch})
+      });
+      const data = await res.json();
+      document.getElementById("status").innerText = "Precisión final: " + data.accuracy;
+      document.getElementById("result").src = data.image_url;
+      document.getElementById("result").style.display = "block";
+    }
+  </script>
+</body>
+</html>
